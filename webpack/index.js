@@ -1,12 +1,14 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-// import backConfig from './back';
-const front_1 = require("./front");
-exports.default = env => {
-    if (env.back) {
-        // return backConfig(env);
-    }
-    else if (env.front) {
-        return front_1.default(env);
-    }
+const backConfig = require('./back');
+const frontConfig = require('./front');
+
+module.exports = env => {
+  if (env.back) {
+    return backConfig(env);
+  }
+
+  if (env.front) {
+    return frontConfig(env);
+  }
+
+  return {};
 };

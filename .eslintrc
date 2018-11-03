@@ -1,24 +1,22 @@
 {
-  "extends": ["plugin:prettier/recommended", "plugin:import/errors", "plugin:import/warnings"],
+  "extends": ["airbnb", "plugin:prettier/recommended", "plugin:import/errors", "plugin:import/warnings"],
   "plugins": ["react", "import", "prettier"],
   "parser": "babel-eslint",
   "rules": {
-    "newline-before-return": "error",
-    "newline-after-var": "error",
-    "import/no-unresolved": "off",
-    "import/newline-after-import": "error",
-    "padding-line-between-statements": [
-      "error",
-      { "blankLine": "always", "prev": ["const", "let", "var"], "next": "*" },
-      { "blankLine": "any", "prev": ["const", "let", "var"], "next": ["const", "let", "var"] },
-      { "blankLine": "always", "prev": "*", "next": "debugger" },
-      { "blankLine": "always", "prev": "debugger", "next": "*" },
-      { "blankLine": "always", "prev": "multiline-block-like", "next": "*" },
-      { "blankLine": "always", "prev": "block-like", "next": "*" },
-      { "blankLine": "always", "prev": "multiline-expression", "next": "*" },
-      { "blankLine": "always", "prev": "class", "next": "*" },
-      { "blankLine": "always", "prev": "function", "next": "*" }
-    ],
-    "line-comment-position": "error"
+    "linebreak-style": "off",
+    "no-debugger": "warn",
+    "react/require-default-props": "warn"
+  },
+  "env": {
+    "browser": true,
+    "node": true,
+    "es6": true
+  },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "paths": ["front"]
+      }
+    }
   }
 }

@@ -1,1 +1,3 @@
-module.exports = require('./production/webpack/index.js').default;
+const webpackConfig = require('./webpack/index');
+
+module.exports = webpackConfig;

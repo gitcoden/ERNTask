@@ -9,7 +9,7 @@ const webpackConfig = {
   context: path.resolve(rootDir, 'back'),
   devtool: 'source-map',
   entry: ['./back.js'],
-  mode: 'production',
+  mode: 'development',
   target: 'node',
   output: {
     path: path.join(rootDir, 'production', 'back'),
@@ -17,12 +17,12 @@ const webpackConfig = {
   },
   externals: [
     nodeExternals({
-      whitelist: [/^lodash/],
+      whitelist: [/^lodash/, /^react\-router/],
     }),
   ],
   resolve: {
     extensions: ['.jsx', '.js'],
-    modules: ['./back', './node_modules'],
+    modules: ['./', '../front', './node_modules'],
   },
   module: {
     rules: [
@@ -58,16 +58,9 @@ const webpackConfig = {
       },
     ],
   },
-  plugins: [
-    new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: JSON.stringify('production'),
-      },
-    }),
-    new UglifyJSPlugin({
-      sourceMap: true,
-    }),
-  ],
+  node: {
+    __dirname: false,
+  },
   watch: true,
   watchOptions: {
     ignored: /node_modules/,

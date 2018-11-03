@@ -2,11 +2,13 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const path = require('path');
+const webpack = require('webpack');
 
 const rootDir = path.resolve(__dirname, '..', '..', '..');
 
-exports = {
+module.exports = {
   mode: 'development',
+  target: 'web',
   entry: ['babel-polyfill', './front/index.jsx'],
   output: {
     filename: 'bundle.js',
@@ -33,11 +35,16 @@ exports = {
   plugins: [
     new CleanWebpackPlugin(['dist']),
     new HtmlWebpackPlugin({
-      template: path.resolve(rootDir, 'front', 'index.html'),
+      template: path.join(__dirname, 'template.html'),
     }),
     new MiniCssExtractPlugin({
       filename: 'style.css',
       chunkFilename: '[id].css',
+    }),
+    new webpack.DefinePlugin({
+      'process.env': {
+        mode: JSON.stringify('development'),
+      },
     }),
   ],
   resolve: {
@@ -50,7 +57,7 @@ exports = {
     port: 9000,
     proxy: {
       '^/api/*': {
-        target: 'http://localhost:8080/api/',
+        target: 'http://localhost:3000/api/',
         secure: false,
       },
     },

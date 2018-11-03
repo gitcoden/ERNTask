@@ -3,14 +3,17 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCss = require('optimize-css-assets-webpack-plugin');
 const path = require('path');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const webpack = require('webpack');
 
-const rootDir = path.resolve(__dirname, '..', '..', '..');
+const rootDir = path.resolve(__dirname, '..', '..');
 
-exports = {
+module.exports = {
+  context: path.resolve(rootDir, 'front'),
+  target: 'web',
   mode: 'production',
-  entry: ['babel-polyfill', './front/index.jsx'],
+  entry: ['babel-polyfill', './index.jsx'],
   output: {
-    filename: 'bundle.js',
+    filename: 'react.js',
     path: path.resolve(rootDir, 'production', 'front'),
   },
   module: {
@@ -32,7 +35,7 @@ exports = {
   },
   resolve: {
     extensions: ['.jsx', '.js', 'html'],
-    modules: [path.resolve(rootDir, 'front'), 'node_modules'],
+    modules: ['./', 'node_modules'],
   },
   optimization: {
     minimize: true,
@@ -44,15 +47,14 @@ exports = {
     ],
   },
   plugins: [
-    new HtmlWebpackPlugin({
-      template: path.resolve(rootDir, 'front', 'index.html'),
-      minify: {
-        collapseWhitespace: true,
-      },
-    }),
     new MiniCssExtractPlugin({
       filename: 'style.css',
       chunkFilename: '[id].css',
+    }),
+    new webpack.DefinePlugin({
+      'process.env': {
+        mode: JSON.stringify('production'),
+      },
     }),
   ],
 };

@@ -15,7 +15,7 @@
   "settings": {
     "import/resolver": {
       "node": {
-        "paths": ["front"]
+        "paths": ["front", "back", "./"]
       }
     }
   }

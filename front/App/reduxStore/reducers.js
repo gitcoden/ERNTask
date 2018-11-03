@@ -1,13 +1,4 @@
 import { combineReducers } from 'redux';
-import { createAction, handleAction } from 'redux-actions';
-import { uniqueId } from 'lodash-es';
+import phones from '../Phones/ducks';
 
-const addPhones = createAction('@@add_phones');
-
-const reducer = combineReducers({
-  phones: handleAction(addPhones, (state = [], { payload }) => [...state, ...payload], [
-    { value: '+70234', uiId: uniqueId() },
-  ]),
-});
-
-export default reducer;
+export default combineReducers({ phones });

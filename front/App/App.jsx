@@ -1,20 +1,18 @@
 import React from 'react';
-import { Provider } from 'react-redux';
+import { Switch, Route } from 'react-router-dom';
 
-import store from './reduxStore';
-import Phones from './Phones';
+import routes from './routes';
+import Default from './Default';
 
-// eslint-disable-next-line react/prefer-stateless-function
-class App extends React.Component {
-  static store = store;
-
-  render() {
-    return (
-      <Provider store={store}>
-        <Phones />
-      </Provider>
-    );
-  }
-}
+const App = () => (
+  <React.Fragment>
+    <Route path="/" component={Default} />
+    <Switch>
+      {routes.map(route => (
+        <Route path={route.path} component={route.component} key={route.uiId} />
+      ))}
+    </Switch>
+  </React.Fragment>
+);
 
 export default App;

@@ -6,7 +6,7 @@
   "scripts": {
     "webpack-compile": "tsc -p ./webpack --outDir production/webpack",
     "webpack-dev-back": "webpack --env.back=true --env.development=true",
-    "nodemon": "nodemon --watch ./production/back production/back/back.js localhost 3000 --inspect",
+    "nodemon": "nodemon --inspect-brk=4545 --watch ./production/back production/back/back.js localhost 3000",
     "webpack-dev-front": "webpack-dev-server --env.front=true --env.development=true --open",
     "webpack-prod-back": "webpack --env.back=true --env.production=true",
     "webpack-prod-front": "webpack --env.front=true --env.production=true",
@@ -24,6 +24,7 @@
   "homepage": "https://github.com/gitcoden/ERNTask#readme",
   "dependencies": {
     "@types/react-redux": "^6.0.9",
+    "axios": "^0.18.0",
     "babel-polyfill": "^6.26.0",
     "ejs": "^2.6.1",
     "express": "^4.16.4",
@@ -32,7 +33,7 @@
     "react": "^16.6.0",
     "react-dom": "^16.6.0",
     "react-redux": "^5.1.0",
-    "react-router": "^4.3.1",
+    "react-router-dom": "^4.3.1",
     "redux": "^4.0.1",
     "redux-actions": "^2.6.4",
     "redux-thunk": "^2.3.0"

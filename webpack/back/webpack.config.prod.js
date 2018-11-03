@@ -15,10 +15,14 @@ const webpackConfig = {
     path: path.join(rootDir, 'production', 'back'),
     filename: './back.js',
   },
-  externals: [nodeExternals()],
+  externals: [
+    nodeExternals({
+      whitelist: [/^lodash/, /^react\-router/],
+    }),
+  ],
   resolve: {
     extensions: ['.jsx', '.js'],
-    modules: ['./back', 'node_modules'],
+    modules: ['./', '../front', './node_modules'],
   },
   module: {
     rules: [
@@ -54,6 +58,9 @@ const webpackConfig = {
         ],
       },
     ],
+  },
+  node: {
+    __dirname: false,
   },
   plugins: [
     new webpack.DefinePlugin({

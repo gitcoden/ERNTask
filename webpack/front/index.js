@@ -1,3 +1,3 @@
 const webpackConfig = require('./webpack.config');
 
-exports = webpackConfig;
+module.exports = webpackConfig;

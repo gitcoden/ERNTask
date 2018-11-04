@@ -37,8 +37,18 @@ module.exports = {
     modules: ['../', 'node_modules'],
   },
   plugins: [
+    new CleanWebpackPlugin(['dist']),
     new HtmlWebpackPlugin({
       template: path.join(__dirname, 'template.html'),
+    }),
+    new MiniCssExtractPlugin({
+      filename: 'style.css',
+      chunkFilename: '[id].css',
+    }),
+    new webpack.DefinePlugin({
+      'process.env': {
+        mode: JSON.stringify('development'),
+      },
     }),
   ],
   devServer: {

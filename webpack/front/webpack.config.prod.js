@@ -10,7 +10,7 @@ module.exports = {
   context: path.resolve(rootDir, 'front'),
   target: 'web',
   mode: 'production',
-  entry: ['babel-polyfill', './index.jsx'],
+  entry: ['./index.jsx'],
   output: {
     filename: 'react.js',
     path: path.resolve(rootDir, 'production', 'front'),
@@ -20,7 +20,6 @@ module.exports = {
       {
         test: [/\.jsx$/, /\.js$/],
         use: ['babel-loader'],
-        exclude: /node_modules/,
       },
       {
         test: /\.css$/,
@@ -29,8 +28,8 @@ module.exports = {
     ],
   },
   resolve: {
-    extensions: ['.jsx', '.js', 'html'],
-    modules: ['./', 'node_modules'],
+    extensions: ['.jsx', '.js'],
+    modules: ['../', 'node_modules'],
   },
   optimization: {
     minimize: true,
@@ -42,14 +41,14 @@ module.exports = {
     ],
   },
   plugins: [
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify('production'),
+      },
+    }),
     new MiniCssExtractPlugin({
       filename: 'style.css',
       chunkFilename: '[id].css',
-    }),
-    new webpack.DefinePlugin({
-      'process.env': {
-        mode: JSON.stringify('production'),
-      },
     }),
   ],
 };

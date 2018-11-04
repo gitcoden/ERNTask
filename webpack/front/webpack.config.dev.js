@@ -9,13 +9,13 @@ const rootDir = path.resolve(__dirname, '..', '..');
 module.exports = {
   context: path.resolve(rootDir, 'front'),
   mode: 'development',
-  target: 'web',
-  entry: ['babel-polyfill', './index.jsx'],
+  entry: ['./index.jsx'],
   output: {
-    filename: 'bundle.js',
-    path: path.join(__dirname, 'dist'),
+    filename: 'react.js',
+    path: path.join(rootDir, 'production', 'front'),
   },
-  devtool: 'eval-source-map',
+  target: 'web',
+  devtool: 'source-map',
   module: {
     rules: [
       {
@@ -29,25 +29,18 @@ module.exports = {
       },
     ],
   },
+  optimization: {
+    namedModules: true,
+  },
+  resolve: {
+    extensions: ['.jsx', '.js'],
+    modules: ['../', 'node_modules'],
+  },
   plugins: [
-    new CleanWebpackPlugin(['dist']),
     new HtmlWebpackPlugin({
       template: path.join(__dirname, 'template.html'),
     }),
-    new MiniCssExtractPlugin({
-      filename: 'style.css',
-      chunkFilename: '[id].css',
-    }),
-    new webpack.DefinePlugin({
-      'process.env': {
-        mode: JSON.stringify('development'),
-      },
-    }),
   ],
-  resolve: {
-    extensions: ['.jsx', '.js', 'html'],
-    modules: ['./', 'node_modules'],
-  },
   devServer: {
     contentBase: path.join(__dirname, 'dist'),
     compress: true,

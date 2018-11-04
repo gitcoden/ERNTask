@@ -1,5 +1,7 @@
 const path = require('path');
 const nodeExternals = require('webpack-node-externals');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const webpack = require('webpack');
 
 const rootDir = path.join(__dirname, '..', '..');
 
@@ -15,12 +17,12 @@ const webpackConfig = {
   },
   externals: [
     nodeExternals({
-      whitelist: [/^lodash/, /^react\-router/, /^bootstrap/],
+      whitelist: [/^lodash/, /^@material-ui/],
     }),
   ],
   resolve: {
     extensions: ['.jsx', '.js'],
-    modules: ['./', '../front', './node_modules'],
+    modules: ['../', './node_modules'],
   },
   module: {
     rules: [
@@ -40,7 +42,7 @@ const webpackConfig = {
           },
         ],
       },
-      { test: /\.css$/, use: ['css-loader'] },
+      { test: /\.css$/, use: [MiniCssExtractPlugin.loader, 'css-loader'] },
       {
         test: /\.(ejs)$/,
         use: [
@@ -64,6 +66,17 @@ const webpackConfig = {
   watchOptions: {
     ignored: /node_modules/,
   },
+  plugins: [
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify('production'),
+      },
+    }),
+    new MiniCssExtractPlugin({
+      filename: 'style.css',
+      chunkFilename: '[id].css',
+    }),
+  ],
 };
 
 module.exports = webpackConfig;

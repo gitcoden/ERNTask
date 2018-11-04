@@ -3,6 +3,9 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import ReactDOMServer from 'react-dom/server';
 import { StaticRouter } from 'react-router-dom';
+import { SheetsRegistry } from 'jss';
+import JssProvider from 'react-jss/lib/JssProvider';
+import { createGenerateClassName, MuiThemeProvider } from '@material-ui/core/styles';
 
 import { addPhones } from 'front/App/Phones/ducks';
 import configureStore from 'front/App/reduxStore';
@@ -16,14 +19,23 @@ router.get('/', (req, res) => {
   store.dispatch(addPhones(['+74955005550']));
 
   const context = {};
+  const sheetsRegistry = new SheetsRegistry();
+  const generateClassName = createGenerateClassName();
+  const sheetsManager = new Map();
 
   const html = ReactDOMServer.renderToString(
-    <Provider store={store}>
-      <StaticRouter location={req.originalUrl} context={context}>
-        <App />
-      </StaticRouter>
-    </Provider>
+    <JssProvider registry={sheetsRegistry} generateClassName={generateClassName}>
+      <MuiThemeProvider sheetsManager={sheetsManager}>
+        <Provider store={store}>
+          <StaticRouter location={req.originalUrl} context={context}>
+            <App />
+          </StaticRouter>
+        </Provider>
+      </MuiThemeProvider>
+    </JssProvider>
   );
+
+  const css = sheetsRegistry.toString();
 
   const finalState = store.getState();
 
@@ -36,6 +48,7 @@ router.get('/', (req, res) => {
     res.status(200).render(view, {
       html,
       initialState: JSON.stringify(finalState),
+      css,
     });
   }
 });

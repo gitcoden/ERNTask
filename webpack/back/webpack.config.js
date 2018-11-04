@@ -1,13 +1,13 @@
-const dev = require('./webpack.config.prod');
-const prod = require('./webpack.config.dev');
+const dev = require('./webpack.config.dev');
+const prod = require('./webpack.config.prod');
 
 module.exports = env => {
   if (env.production) {
-    return dev;
+    return prod;
   }
 
   if (env.development) {
-    return prod;
+    return dev;
   }
 
   return {};

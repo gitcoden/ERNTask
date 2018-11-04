@@ -8,8 +8,18 @@ router.use((req, res, next) => {
   next();
 });
 
-router.get('/validate_phone', (req, res) => {
-  res.json({ valid: false }).end();
+router.use(express.json());
+
+const phoneRegExp = /^(\+7|8)\d{10}$/;
+const errorMessage = 'Phone number is invalid';
+const successMessage = 'Phone number is valid';
+
+router.post('/validate_phone', (req, res) => {
+  const { phone } = req.body;
+
+  const valid = phoneRegExp.test(phone);
+
+  res.json({ valid, message: valid ? successMessage : errorMessage }).end();
 });
 
 export default router;

@@ -30,6 +30,7 @@ const webpackConfig = {
       {
         test: [/\.js$/, /\.jsx$/],
         use: ['babel-loader'],
+        exclude: /node_modules/,
       },
       {
         test: /\.(png|jpg|gif)$/,

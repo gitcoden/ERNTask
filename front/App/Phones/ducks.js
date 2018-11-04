@@ -3,6 +3,10 @@ import { uniqueId } from 'lodash-es';
 
 const addPhoneAction = createAction('@@add_phone');
 
+export const addPhone = phone => dispatch => {
+  dispatch(addPhoneAction({ value: phone, uiId: uniqueId() }));
+};
+
 export const addPhones = phones => dispatch => {
   phones.forEach(phone => {
     dispatch(addPhoneAction({ value: phone, uiId: uniqueId() }));

@@ -104,7 +104,7 @@ class ValidatePhone extends React.Component {
                     </FormControl>
                   )}
                 />
-                <FormControl style={{ marginLeft: 10, position: 'relative' }}>
+                <FormControl style={{ marginLeft: 10 }}>
                   <TextField label="Time left" type="time" value={this.getTimeLeft()} disabled />
                   <Button disabled={timeLeft > 0 || erorr || phone.length === 0} type="submit">
 

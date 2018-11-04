@@ -1,6 +1,4 @@
 const path = require('path');
-const webpack = require('webpack');
-const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const nodeExternals = require('webpack-node-externals');
 
 const rootDir = path.join(__dirname, '..', '..');
@@ -17,7 +15,7 @@ const webpackConfig = {
   },
   externals: [
     nodeExternals({
-      whitelist: [/^lodash/, /^react\-router/],
+      whitelist: [/^lodash/, /^react\-router/, /^bootstrap/],
     }),
   ],
   resolve: {
@@ -42,6 +40,7 @@ const webpackConfig = {
           },
         ],
       },
+      { test: /\.css$/, use: ['css-loader'] },
       {
         test: /\.(ejs)$/,
         use: [

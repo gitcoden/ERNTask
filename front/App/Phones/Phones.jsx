@@ -1,22 +1,25 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import axios from 'axios';
+
+import { List, ListItem, ListItemIcon, ListItemText } from '@material-ui/core/es';
+import PhoneIcon from '@material-ui/icons/Phone';
 
 @connect(state => ({ phones: state.phones }))
 class Phones extends React.Component {
-  componentDidMount() {
-    axios.get('http://localhost:3000/api/validate_phone');
-  }
-
   render() {
     const { phones } = this.props;
     return (
-      <ul>
+      <List>
         {phones.map(phone => (
-          <li key={phone.uiId}>{phone.value}</li>
+          <ListItem key={phone.uiId}>
+            <ListItemIcon>
+              <PhoneIcon />
+            </ListItemIcon>
+            <ListItemText>{phone.value}</ListItemText>
+          </ListItem>
         ))}
-      </ul>
+      </List>
     );
   }
 }

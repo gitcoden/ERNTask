@@ -4,12 +4,13 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const path = require('path');
 const webpack = require('webpack');
 
-const rootDir = path.resolve(__dirname, '..', '..', '..');
+const rootDir = path.resolve(__dirname, '..', '..');
 
 module.exports = {
+  context: path.resolve(rootDir, 'front'),
   mode: 'development',
   target: 'web',
-  entry: ['babel-polyfill', './front/index.jsx'],
+  entry: ['babel-polyfill', './index.jsx'],
   output: {
     filename: 'bundle.js',
     path: path.join(__dirname, 'dist'),
@@ -25,10 +26,6 @@ module.exports = {
       {
         test: /\.css$/,
         use: [MiniCssExtractPlugin.loader, 'css-loader'],
-      },
-      {
-        test: /\.html$/,
-        use: ['html-loader'],
       },
     ],
   },
@@ -49,7 +46,7 @@ module.exports = {
   ],
   resolve: {
     extensions: ['.jsx', '.js', 'html'],
-    modules: [path.resolve(rootDir, 'front'), 'node_modules'],
+    modules: ['./', 'node_modules'],
   },
   devServer: {
     contentBase: path.join(__dirname, 'dist'),

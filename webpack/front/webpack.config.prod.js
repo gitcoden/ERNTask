@@ -1,4 +1,3 @@
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCss = require('optimize-css-assets-webpack-plugin');
 const path = require('path');
@@ -26,10 +25,6 @@ module.exports = {
       {
         test: /\.css$/,
         use: [MiniCssExtractPlugin.loader, 'css-loader'],
-      },
-      {
-        test: /\.html$/,
-        use: ['html-loader'],
       },
     ],
   },
